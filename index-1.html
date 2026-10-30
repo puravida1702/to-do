@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Tickoff</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#1E1A16">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+:root{--bg:#F2EAE0;--paper:#FAF7F2;--card:#fff;--gold:#AD8B54;--gold2:#8B6B35;--ink:#1E1A16;--mute:#6B5F52;--late:#A4442F;--serif:Lora,Georgia,"Times New Roman",serif}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 Lato,system-ui,sans-serif}
+body{padding-bottom:calc(96px + env(safe-area-inset-bottom))}
+.wrap{max-width:560px;margin:0 auto;padding:max(12px,env(safe-area-inset-top)) 12px 0}
+.frame{border:2px solid var(--gold);padding:6px}
+#root{border:1px solid var(--gold);background:var(--paper);padding:26px 18px 30px;min-height:72vh}
+.eyebrow{text-align:center;letter-spacing:.35em;text-transform:uppercase;font-weight:700;color:var(--gold2);font-size:.9rem;margin:6px 0}
+.big{font:500 2.9rem/1.08 var(--serif);text-align:center;margin:.1em 0}
+.sub{font:italic 400 1.25rem var(--serif);color:var(--mute);text-align:center;margin:.2em 0}
+.div{display:flex;align-items:center;gap:14px;margin:18px 22px}.div i{flex:1;height:1px;background:var(--gold)}.div b{width:11px;height:11px;background:var(--gold);transform:rotate(45deg)}
+.sec{font:italic 400 1.8rem var(--serif);text-align:center;color:var(--gold2);margin:16px 0 12px}
+.grp{letter-spacing:.2em;text-transform:uppercase;font-weight:700;font-size:.8rem;color:var(--gold2);margin:18px 0 8px;border-bottom:1px solid var(--gold);padding-bottom:6px}
+.card{display:block;width:100%;text-align:left;background:var(--card);border:1.5px solid var(--gold);padding:16px 20px;margin-bottom:14px;color:var(--ink);font:inherit;cursor:pointer}
+.card .n{font:500 1.8rem/1.2 var(--serif)}.card small{display:block;color:var(--mute);font-size:1rem}
+.crest{display:block;width:150px;height:150px;margin:0 auto 6px}
+#cfig *{stroke:#1E1A16;fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}#cfig .pen{fill:#AD8B54}
+#cfig{transform-box:fill-box;transform-origin:50% 100%}#thumb{opacity:0}#cfig.up #thumb{opacity:1}#cfig.up #idle{opacity:0}
+#cfig.hop{animation:hop .5s}@keyframes hop{30%{transform:translateY(-8px) rotate(-4deg)}}
+.langs{display:flex;gap:10px;justify-content:center;margin-bottom:14px}.langs .chip{padding:10px 20px}
+.it{background:var(--card);border:1px solid #d8c7a6;padding:12px 14px;margin-bottom:10px}
+.r{display:flex;align-items:center;gap:12px}
+.t{flex:1;min-width:0;overflow-wrap:anywhere;cursor:pointer}.t span{font:400 1.1rem var(--serif)}.t small{display:block;color:var(--mute);font-size:.85rem}
+.it.done .t span{color:var(--mute);text-decoration:line-through}
+.late{color:var(--late)!important}.chev{color:var(--gold);font-size:1.4rem}
+.box{width:28px;height:28px;flex:none;border:2px solid var(--ink);background:#fff;padding:0;cursor:pointer}
+.box svg{width:100%;height:100%;overflow:visible}
+.box path{fill:none;stroke:var(--gold);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;transition:stroke-dashoffset .3s}
+.it.done .box path,.box.on path{stroke-dashoffset:0}.box.sm{width:22px;height:22px}
+.chips{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;margin:12px 0}
+.chip{flex:none;border:1.5px solid var(--ink);background:none;padding:10px 18px;letter-spacing:.18em;text-transform:uppercase;font:700 .8rem Lato;color:var(--ink);cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff}
+input,select,textarea{font:inherit;color:var(--ink);background:#fff;border:1.5px solid var(--gold);border-radius:0;padding:11px 12px;width:100%;min-width:0}
+input[type=search]{font:italic 400 1.15rem var(--serif)}textarea{min-height:70px}
+label{display:grid;gap:4px;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--gold2);margin-bottom:10px}
+label>*{letter-spacing:0;text-transform:none;font-weight:400;font-size:1rem}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{background:var(--ink);color:#fff;border:1.5px solid var(--ink);padding:13px 20px;letter-spacing:.18em;text-transform:uppercase;font:700 .8rem Lato;cursor:pointer}
+.btn.o{background:none;color:var(--ink)}.btns{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}.btns .btn{flex:1}.full{width:100%;margin-bottom:10px}
+.link{background:none;border:0;color:var(--gold2);font:inherit;cursor:pointer;padding:6px 4px;text-decoration:underline}
+.empty{color:var(--mute);font:italic 400 1.1rem var(--serif);text-align:center;padding:14px 0}
+.top{display:flex;justify-content:space-between;align-items:center}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:8px 0}
+.cal .w{text-align:center;color:var(--gold2);font-weight:700;font-size:.8rem}
+.cal button{aspect-ratio:1;border:1px solid #e1d3b8;background:#fff;font:inherit;position:relative;cursor:pointer;color:var(--ink);padding:0}
+.cal .tt{background:var(--ink);color:#fff}.cal .sl{outline:2px solid var(--gold);outline-offset:1px}.cal .out{opacity:.35}
+.cal i{position:absolute;bottom:4px;left:50%;width:6px;height:6px;margin-left:-3px;background:var(--gold);border-radius:50%}
+.tot{display:flex;justify-content:space-between;border-top:1.5px solid var(--ink);padding-top:8px;margin-top:12px}
+.sub2{display:flex;align-items:center;gap:10px;margin-bottom:6px}.sub2 span{flex:1}.sub2.d span{text-decoration:line-through;color:var(--mute)}
+nav{position:fixed;left:0;right:0;bottom:0;background:var(--ink);display:flex;justify-content:space-around;padding:6px 2px calc(8px + env(safe-area-inset-bottom));z-index:5}
+nav button{background:none;border:0;border-bottom:3px solid transparent;color:#d9cfc0;letter-spacing:.14em;text-transform:uppercase;font:700 .78rem Lato;cursor:pointer;padding:14px 6px 8px}
+nav button[aria-current=page]{color:#fff;border-bottom-color:var(--gold)}
+.badge{background:var(--gold);color:#fff;border-radius:999px;padding:2px 9px;margin-left:6px;letter-spacing:0}
+#sheet{position:fixed;inset:0;background:rgba(30,26,22,.55);z-index:10;display:flex;align-items:flex-end}#sheet[hidden]{display:none}
+.sh{background:var(--paper);border-top:3px solid var(--gold);width:100%;max-width:560px;margin:0 auto;max-height:92vh;overflow:auto;padding:18px 18px calc(24px + env(safe-area-inset-bottom))}
+#toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--paper);border:1.5px solid var(--gold);padding:10px 16px;z-index:12;max-width:90%;font:italic 400 1.05rem var(--serif);opacity:0;pointer-events:none;transition:opacity .25s}#toast.on{opacity:1}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){#cfig.hop{animation:none}.box path,#toast{transition:none}}
+</style></head><body>
+<div class="wrap"><div class="frame"><main id="root"></main></div></div>
+<nav id="nav"></nav><div id="sheet" hidden></div><div id="toast" role="status"></div>
+<input type="file" id="imp" accept="application/json" hidden>
+<script>
+const K='tickoff2',$=s=>document.querySelector(s);
+const nl=(navigator.language||'en').slice(0,2);let lang=['fr','es'].includes(nl)?nl:'en';try{lang=localStorage.getItem('tickoff-lang')||lang}catch(e){}document.documentElement.lang=lang;
+const D={"fr": {"All": "Tout", "Tasks": "Tâches", "Shopping": "Courses", "Shopping / materials": "Courses / matériaux", "Shopping list": "Liste de courses", "Today": "Aujourd’hui", "Home": "Accueil", "Calendar": "Calendrier", "Lists": "Listes", "Your day": "Votre journée", "My lists": "Mes listes", "Due today and overdue": "Pour aujourd’hui et en retard", "Coming up in the next 7 days": "À venir dans les 7 prochains jours", "Set one when you add a task": "Ajoutez-en un en créant une tâche", "Add a task": "Ajouter une tâche", "Phone and backup": "Téléphone et sauvegarde", "Reminders pop up while Tickoff is open. To be alerted when it’s closed, add your tasks to your phone’s calendar.": "Les rappels s’affichent quand Tickoff est ouvert. Pour être alerté application fermée, ajoutez vos tâches au calendrier de votre téléphone.", "Add to phone calendar": "Ajouter au calendrier du téléphone", "Export backup": "Exporter la sauvegarde", "Import backup": "Importer une sauvegarde", "Turn on notifications": "Activer les notifications", "Notifications on.": "Notifications activées.", "Notifications are off.": "Notifications désactivées.", "Overdue": "En retard", "Due today": "Pour aujourd’hui", "Nothing due today. Enjoy it, or add a task.": "Rien pour aujourd’hui. Profitez-en, ou ajoutez une tâche.", "Upcoming reminders": "Rappels à venir", "Previous month": "Mois précédent", "Next month": "Mois suivant", "Go to today": "Aller à aujourd’hui", "Nothing planned.": "Rien de prévu.", "Add on this day": "Ajouter ce jour-là", "Search a task or a list": "Rechercher une tâche ou une liste", "Search": "Rechercher", "No match.": "Aucun résultat.", "No lists of this kind yet.": "Aucune liste de ce type.", "New list, e.g. Car or Shed project": "Nouvelle liste, p. ex. Voiture ou Projet cabane", "New list": "Nouvelle liste", "Name": "Nom", "Type": "Type", "Add list": "Ajouter la liste", "Empty": "Vide", "‹ All lists": "‹ Toutes les listes", "Delete list": "Supprimer la liste", "Add an item": "Ajouter un article", "Nothing on this list yet.": "Rien dans cette liste pour l’instant.", "Nothing here yet.": "Rien ici pour l’instant.", "Still to buy": "Reste à acheter", "Bought": "Acheté", "{0} task": "{0} tâche", "{0} tasks": "{0} tâches", "{0} this week": "{0} cette semaine", "{0} reminder": "{0} rappel", "{0} reminders": "{0} rappels", "Next: {0}": "Prochain : {0}", "{0} lists, {1} open items": "{0} listes, {1} éléments ouverts", "{0} lists": "{0} listes", "{0} open items": "{0} éléments ouverts", "{0} of {1} bought": "{0} sur {1} achetés", "{0} of {1} done": "{0} sur {1} faites", "still to buy {0}": "reste à acheter {0}", "{0} overdue": "{0} en retard", "Done. Next one:": "Fait. Prochaine échéance :", "Nice, ticked off.": "Bien, c’est coché.", "Everything bought!": "Tout est acheté !", "List clear. Well done!": "Liste terminée. Bravo !", "at": "à", "reminder": "rappel", "steps": "étapes", "daily": "quotidien", "weekly": "hebdomadaire", "monthly": "mensuel", "yearly": "annuel", "New task": "Nouvelle tâche", "Edit task": "Modifier la tâche", "Title": "Titre", "List": "Liste", "Date": "Date", "Time": "Heure", "Reminder (needs a date)": "Rappel (nécessite une date)", "Repeat (needs a date)": "Répétition (nécessite une date)", "Quantity": "Quantité", "Price each": "Prix unitaire", "Notes": "Notes", "What needs doing?": "Que faut-il faire ?", "Garage name, part numbers, links…": "Nom du garage, références de pièces, liens…", "Add a step": "Ajouter une étape", "Steps": "Étapes", "Add step": "Ajouter", "Remove step": "Retirer l’étape", "Save": "Enregistrer", "Cancel": "Annuler", "Delete task": "Supprimer la tâche", "Does not repeat": "Ne se répète pas", "Repeats daily": "Chaque jour", "Repeats weekly": "Chaque semaine", "Repeats monthly": "Chaque mois", "Repeats yearly": "Chaque année", "No reminder": "Aucun rappel", "At the time": "À l’heure prévue", "10 minutes before": "10 minutes avant", "1 hour before": "1 heure avant", "1 day before": "1 jour avant", "Tap again to confirm": "Touchez de nouveau pour confirmer", "Toggle done": "Basculer fait", "File saved: ": "Fichier enregistré : ", "Backup imported.": "Sauvegarde importée.", "That file isn’t a Tickoff backup.": "Ce fichier n’est pas une sauvegarde Tickoff.", "Reminder: ": "Rappel : "}, "es": {"All": "Todo", "Tasks": "Tareas", "Shopping": "Compras", "Shopping / materials": "Compras / materiales", "Shopping list": "Lista de compras", "Today": "Hoy", "Home": "Inicio", "Calendar": "Calendario", "Lists": "Listas", "Your day": "Tu día", "My lists": "Mis listas", "Due today and overdue": "Para hoy y atrasadas", "Coming up in the next 7 days": "Próximos 7 días", "Set one when you add a task": "Añade uno al crear una tarea", "Add a task": "Añadir una tarea", "Phone and backup": "Teléfono y copia de seguridad", "Reminders pop up while Tickoff is open. To be alerted when it’s closed, add your tasks to your phone’s calendar.": "Los recordatorios aparecen mientras Tickoff está abierto. Para recibir avisos con la app cerrada, añade tus tareas al calendario del teléfono.", "Add to phone calendar": "Añadir al calendario del teléfono", "Export backup": "Exportar copia de seguridad", "Import backup": "Importar copia de seguridad", "Turn on notifications": "Activar notificaciones", "Notifications on.": "Notificaciones activadas.", "Notifications are off.": "Notificaciones desactivadas.", "Overdue": "Atrasadas", "Due today": "Para hoy", "Nothing due today. Enjoy it, or add a task.": "Nada para hoy. Disfrútalo, o añade una tarea.", "Upcoming reminders": "Próximos recordatorios", "Previous month": "Mes anterior", "Next month": "Mes siguiente", "Go to today": "Ir a hoy", "Nothing planned.": "Nada planeado.", "Add on this day": "Añadir este día", "Search a task or a list": "Buscar una tarea o una lista", "Search": "Buscar", "No match.": "Sin resultados.", "No lists of this kind yet.": "Aún no hay listas de este tipo.", "New list, e.g. Car or Shed project": "Nueva lista, p. ej. Coche o Proyecto del cobertizo", "New list": "Nueva lista", "Name": "Nombre", "Type": "Tipo", "Add list": "Añadir lista", "Empty": "Vacía", "‹ All lists": "‹ Todas las listas", "Delete list": "Eliminar lista", "Add an item": "Añadir un artículo", "Nothing on this list yet.": "Aún no hay nada en esta lista.", "Nothing here yet.": "Aún no hay nada aquí.", "Still to buy": "Por comprar", "Bought": "Comprado", "{0} task": "{0} tarea", "{0} tasks": "{0} tareas", "{0} this week": "{0} esta semana", "{0} reminder": "{0} recordatorio", "{0} reminders": "{0} recordatorios", "Next: {0}": "Siguiente: {0}", "{0} lists, {1} open items": "{0} listas, {1} elementos abiertos", "{0} lists": "{0} listas", "{0} open items": "{0} elementos abiertos", "{0} of {1} bought": "{0} de {1} comprados", "{0} of {1} done": "{0} de {1} hechas", "still to buy {0}": "por comprar {0}", "{0} overdue": "{0} atrasadas", "Done. Next one:": "Hecho. Siguiente:", "Nice, ticked off.": "Bien, tachado.", "Everything bought!": "¡Todo comprado!", "List clear. Well done!": "Lista completa. ¡Bien hecho!", "at": "a las", "reminder": "recordatorio", "steps": "pasos", "daily": "diario", "weekly": "semanal", "monthly": "mensual", "yearly": "anual", "New task": "Nueva tarea", "Edit task": "Editar tarea", "Title": "Título", "List": "Lista", "Date": "Fecha", "Time": "Hora", "Reminder (needs a date)": "Recordatorio (requiere fecha)", "Repeat (needs a date)": "Repetición (requiere fecha)", "Quantity": "Cantidad", "Price each": "Precio unitario", "Notes": "Notas", "What needs doing?": "¿Qué hay que hacer?", "Garage name, part numbers, links…": "Nombre del taller, referencias de piezas, enlaces…", "Add a step": "Añadir un paso", "Steps": "Pasos", "Add step": "Añadir", "Remove step": "Quitar paso", "Save": "Guardar", "Cancel": "Cancelar", "Delete task": "Eliminar tarea", "Does not repeat": "No se repite", "Repeats daily": "A diario", "Repeats weekly": "Cada semana", "Repeats monthly": "Cada mes", "Repeats yearly": "Cada año", "No reminder": "Sin recordatorio", "At the time": "A la hora", "10 minutes before": "10 minutos antes", "1 hour before": "1 hora antes", "1 day before": "1 día antes", "Tap again to confirm": "Toca de nuevo para confirmar", "Toggle done": "Marcar como hecho", "File saved: ": "Archivo guardado: ", "Backup imported.": "Copia importada.", "That file isn’t a Tickoff backup.": "Ese archivo no es una copia de Tickoff.", "Reminder: ": "Recordatorio: "}};
+const _=(k,...a)=>{let r=(D[lang]&&D[lang][k])||k;a.forEach((v,i)=>{r=r.replace('{'+i+'}',()=>v)});return r};
+const uid=()=>'i'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
+const pad=n=>String(n).padStart(2,'0');
+const iso=x=>x.getFullYear()+'-'+pad(x.getMonth()+1)+'-'+pad(x.getDate());
+const today=()=>iso(new Date());
+const addD=n=>{const x=new Date();x.setDate(x.getDate()+n);return iso(x)};
+const fmt=d=>new Date(d+'T00:00').toLocaleDateString(lang,{day:'numeric',month:'short'});
+const money=n=>(Math.round((n||0)*100)/100).toLocaleString(lang,{minimumFractionDigits:2,maximumFractionDigits:2});
+const REP={d:'daily',w:'weekly',m:'monthly',y:'yearly'};
+const REM={'':'No reminder','0':'At the time','10':'10 minutes before','60':'1 hour before','1440':'1 day before'};
+function nextDue(d,r){const x=new Date(d+'T00:00');if(r==='d')x.setDate(x.getDate()+1);if(r==='w')x.setDate(x.getDate()+7);if(r==='m')x.setMonth(x.getMonth()+1);if(r==='y')x.setFullYear(x.getFullYear()+1);return iso(x)}
+function norm(i){i.time=i.time||'';i.rem=i.rem==null?'':String(i.rem);i.rep=i.rep||'';i.subs=i.subs||[];i.note=i.note||'';return i}
+function load(){
+ try{const j=JSON.parse(localStorage.getItem(K));if(j&&j.lists){j.items.forEach(norm);return j}}catch(e){}
+ const s={lists:[],items:[]};
+ try{JSON.parse(localStorage.getItem('tickoff')||'[]').forEach(o=>{let l=s.lists.find(l=>l.name===o.tag);if(!l){l={id:uid(),name:o.tag,type:'tasks'};s.lists.push(l)}s.items.push(norm({id:uid(),list:l.id,text:o.text,done:o.done,due:o.due||''}))})}catch(e){}
+ if(!s.lists.length)s.lists=[{id:uid(),name:'Car',type:'tasks'},{id:uid(),name:'Home',type:'tasks'},{id:uid(),name:'Garden',type:'tasks'}];
+ return s}
+let S=load(),tab='home',cur=null,flt='all',sel=today(),cy=new Date().getFullYear(),cm=new Date().getMonth();
+const persist=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+const listOf=id=>S.lists.find(l=>l.id===id);
+function h(t,a,...c){const e=document.createElement(t);for(const k in a||{}){const v=a[k];if(k.startsWith('on'))e[k]=v;else if(k==='value')e.value=v;else if(v!=null&&v!==false)e.setAttribute(k,v)}c.flat().forEach(x=>x!=null&&e.append(x));return e}
+const sel_=(pairs,v,fn)=>h('select',{onchange:fn},pairs.map(([k,t])=>{const o=h('option',{value:k},t);if(String(k)===String(v))o.selected=true;return o}));
+const lab=(t,el)=>h('label',{},t,el);
+let tt;function toast(m){const e=$('#toast');e.textContent=m;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2600)}
+const TICK='<svg viewBox="0 0 32 32"><path d="M6 17l7 8L28 4"/></svg>';
+function box(on,fn,sm){const b=h('button',{class:'box'+(sm?' sm':'')+(on?' on':''),'aria-label':_('Toggle done'),type:'button',onclick:fn});b.innerHTML=TICK;return b}
+function twoTap(label,fn,cls){const b=h('button',{class:cls||'link',type:'button'},label);let a=false;b.onclick=()=>{if(a)return fn();a=true;b.textContent=_('Tap again to confirm');setTimeout(()=>{a=false;b.textContent=label},3000)};return b}
+const key=i=>i.due?i.due+(i.time||'00:00'):'9';
+const byDue=(a,b)=>(a.done-b.done)||(key(a)<key(b)?-1:key(a)>key(b)?1:0);
+const open=()=>S.items.filter(i=>!i.done);
+const remAt=i=>(!i.due||i.rem==='')?null:new Date(i.due+'T'+(i.time||'09:00')).getTime()-(+i.rem)*60000;
+function counts(){const t=today();const o=open();return{today:o.filter(i=>i.due&&i.due<=t).length,week:o.filter(i=>i.due&&i.due>=t&&i.due<=addD(7)).length,rems:o.filter(i=>{const a=remAt(i);return a!=null&&a>Date.now()})}}
+function toggle(it){
+ const l=listOf(it.list);
+ if(it.rep&&it.due&&!it.done){while(it.due<=today())it.due=nextDue(it.due,it.rep);it.fired='';toast(_('Done. Next one:')+' '+fmt(it.due))}
+ else{it.done=!it.done;if(it.done)toast(S.items.some(x=>x.list===it.list&&!x.done)?_('Nice, ticked off.'):(l&&l.type==='buy'?_('Everything bought!'):_('List clear. Well done!')))}
+ persist();render();if(it.done){const f=$('#cfig');if(f)f.classList.add('up','hop')}}
+function row(it,sl){
+ const l=listOf(it.list),late=!it.done&&it.due&&it.due<today(),m=[];
+ if(sl&&l)m.push(l.name);if(it.due)m.push((late?_('Overdue')+' ':'')+fmt(it.due)+(it.time?' '+_('at')+' '+it.time:''));
+ if(it.rem!=='')m.push(_('reminder'));if(it.rep)m.push(_(REP[it.rep]));
+ if(l&&l.type==='buy')m.push((it.qty||1)+' × '+money(it.price));
+ if(it.subs.length)m.push(it.subs.filter(s=>s.d).length+'/'+it.subs.length+' '+_('steps'));
+ return h('div',{class:'it'+(it.done?' done':'')},h('div',{class:'r'},box(it.done,()=>toggle(it)),h('div',{class:'t',onclick:()=>sheet(it)},h('span',{},it.text),h('small',{class:late?'late':''},m.join(', '))),h('span',{class:'chev'},'›')))}
+const hdr=(e,b,s)=>[h('div',{class:'eyebrow'},e),h('h1',{class:'big'},b),s?h('p',{class:'sub'},s):null,h('div',{class:'div'},h('i'),h('b'),h('i'))];
+const longDate=()=>new Date().toLocaleDateString(lang,{weekday:'long',day:'numeric',month:'long'});
+const FIG='<path d="M45 38m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0"/><path d="M41 41q4 4 8 0"/><path d="M45 47v26M45 73l-9 18M45 73l9 18"/><path id="idle" d="M45 54L30 44L28 28"/><path id="thumb" d="M45 54L32 42L30 30"/><path d="M45 56l16-6M61 50v-6M61 44l4 2"/><path class="pen" d="M12 22L56 14L66 18L56 24L14 32Z"/>';
+function crest(){let t='';for(let i=0;i<60;i++){const a=i*Math.PI/30,r1=i%5?73:69;t+=`<line x1="${100+r1*Math.sin(a)}" y1="${100-r1*Math.cos(a)}" x2="${100+77*Math.sin(a)}" y2="${100-77*Math.cos(a)}"/>`}
+ const dia=[[100,6],[194,100],[100,194],[6,100]].map(([x,y])=>`<rect x="${x-5}" y="${y-5}" width="10" height="10" transform="rotate(45 ${x} ${y})" fill="#AD8B54" stroke="none"/>`).join('');
+ const d=h('div');d.innerHTML=`<svg class="crest" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="95" fill="#FAF7F2" stroke="#AD8B54" stroke-width="2"/><circle cx="100" cy="100" r="87" fill="none" stroke="#1F2A44" stroke-width="3"/><g stroke="#AD8B54" stroke-width="1">${t}</g>${dia}<g transform="translate(52,50) scale(.95)"><g id="cfig">${FIG}</g></g></svg>`;return d.firstChild}
+function home(r){
+ const c=counts(),nx=c.rems.sort((a,b)=>remAt(a)-remAt(b))[0];
+ r.append(langBar(),crest(),h('p',{class:'sub'},longDate()),h('div',{class:'div'},h('i'),h('b'),h('i')),h('h2',{class:'sec'},_('Today')));
+ const card=(n,s,fn)=>h('button',{class:'card',type:'button',onclick:fn},h('div',{class:'n'},n),h('small',{},s));
+ r.append(card(_(c.today===1?'{0} task':'{0} tasks',c.today),_('Due today and overdue'),()=>go('today')),
+  card(_('{0} this week',c.week),_('Coming up in the next 7 days'),()=>go('cal')),
+  card(_(c.rems.length===1?'{0} reminder':'{0} reminders',c.rems.length),nx?_('Next: {0}',nx.text):_('Set one when you add a task'),()=>go('today')));
+ r.append(h('div',{class:'div'},h('i'),h('b'),h('i')),card(_('My lists'),_('{0} lists, {1} open items',S.lists.length,open().length),()=>go('lists')),h('button',{class:'btn full',type:'button',onclick:()=>sheet(null)},_('Add a task')));
+ r.append(h('h2',{class:'sec'},_('Phone and backup')));
+ r.append(h('p',{class:'empty'},_('Reminders pop up while Tickoff is open. To be alerted when it’s closed, add your tasks to your phone’s calendar.')));
+ const b=(t,fn)=>h('button',{class:'btn o full',type:'button',onclick:fn},t);
+ r.append(b(_('Add to phone calendar'),()=>dl('tickoff.ics',ics(),'text/calendar')),b(_('Export backup'),()=>dl('tickoff-backup.json',JSON.stringify(S),'application/json')),b(_('Import backup'),()=>$('#imp').click()));
+ if(window.Notification&&Notification.permission!=='granted')r.append(b(_('Turn on notifications'),()=>Notification.requestPermission().then(p=>toast(p==='granted'?_('Notifications on.'):_('Notifications are off.')))))}
+function langBar(){return h('div',{class:'langs'},['en','fr','es'].map(c=>h('button',{type:'button',class:'chip','aria-pressed':lang===c,onclick:()=>{lang=c;try{localStorage.setItem('tickoff-lang',c)}catch(e){}document.documentElement.lang=c;render()}},c.toUpperCase())))}
+function today_(r){
+ const t=today(),o=open().sort(byDue),od=o.filter(i=>i.due&&i.due<t),td=o.filter(i=>i.due===t);
+ r.append(...hdr(_('Today'),_('Your day'),longDate()));
+ r.append(h('button',{class:'btn full',type:'button',onclick:()=>sheet(null,{due:t})},_('Add a task')));
+ const g=(n,a)=>{if(a.length){r.append(h('div',{class:'grp'},n+' ('+a.length+')'));a.forEach(i=>r.append(row(i,true)))}};
+ g(_('Overdue'),od);g(_('Due today'),td);
+ if(!od.length&&!td.length)r.append(h('p',{class:'empty'},_('Nothing due today. Enjoy it, or add a task.')));
+ const rs=counts().rems.sort((a,b)=>remAt(a)-remAt(b)).slice(0,5);
+ if(rs.length){r.append(h('div',{class:'grp'},_('Upcoming reminders')));rs.forEach(i=>r.append(row(i,true)))}}
+function cal(r){
+ const t=today(),first=new Date(cy,cm,1),off=(first.getDay()+6)%7,dim=new Date(cy,cm+1,0).getDate();
+ r.append(h('div',{class:'eyebrow'},_('Calendar')),h('h1',{class:'big'},first.toLocaleDateString(lang,{month:'long',year:'numeric'})),h('div',{class:'div'},h('i'),h('b'),h('i')));
+ const mv=n=>{const x=new Date(cy,cm+n,1);cy=x.getFullYear();cm=x.getMonth();render()};
+ r.append(h('div',{class:'top'},h('button',{class:'btn o',type:'button','aria-label':_('Previous month'),onclick:()=>mv(-1)},'‹'),h('button',{class:'link',type:'button',onclick:()=>{const n=new Date();cy=n.getFullYear();cm=n.getMonth();sel=t;render()}},_('Go to today')),h('button',{class:'btn o',type:'button','aria-label':_('Next month'),onclick:()=>mv(1)},'›')));
+ const g=h('div',{class:'cal'});
+ for(let i=0;i<7;i++)g.append(h('div',{class:'w'},new Date(2024,0,1+i).toLocaleDateString(lang,{weekday:'narrow'})));
+ const total=Math.ceil((off+dim)/7)*7;
+ for(let i=0;i<total;i++){const x=new Date(cy,cm,1-off+i),d=iso(x),has=S.items.some(it=>it.due===d&&!it.done);
+  g.append(h('button',{type:'button',class:(d===t?'tt ':'')+(d===sel?'sl ':'')+(x.getMonth()!==cm?'out':''),'aria-label':d,onclick:()=>{sel=d;render()}},String(x.getDate()),has?h('i'):null))}
+ r.append(g,h('h2',{class:'sec'},new Date(sel+'T00:00').toLocaleDateString(lang,{weekday:'long',day:'numeric',month:'long'})));
+ const day=S.items.filter(i=>i.due===sel).sort(byDue);
+ day.forEach(i=>r.append(row(i,true)));
+ if(!day.length)r.append(h('p',{class:'empty'},_('Nothing planned.')));
+ r.append(h('button',{class:'btn full',type:'button',onclick:()=>sheet(null,{due:sel})},_('Add on this day')))}
+function lists(r){
+ if(cur&&listOf(cur))return listView(r);cur=null;
+ r.append(...hdr(_('My lists'),_('{0} lists',S.lists.length),_('{0} open items',open().length)));
+ const q=h('input',{type:'search',placeholder:_('Search a task or a list'),'aria-label':_('Search')});
+ const chips=h('div',{class:'chips'},[['all',_('All')],['tasks',_('Tasks')],['buy',_('Shopping')]].map(([k,l])=>h('button',{class:'chip',type:'button','aria-pressed':flt===k,onclick:()=>{flt=k;render()}},l)));
+ const res=h('div');
+ const show=()=>{res.replaceChildren();const s=q.value.trim().toLowerCase();
+  if(s){const L=S.lists.filter(l=>l.name.toLowerCase().includes(s)),I=S.items.filter(i=>(i.text+' '+i.note).toLowerCase().includes(s)).sort(byDue);
+   L.forEach(l=>res.append(listCard(l)));I.forEach(i=>res.append(row(i,true)));if(!L.length&&!I.length)res.append(h('p',{class:'empty'},_('No match.')));return}
+  const L=S.lists.filter(l=>flt==='all'||l.type===flt);L.forEach(l=>res.append(listCard(l)));if(!L.length)res.append(h('p',{class:'empty'},_('No lists of this kind yet.')))};
+ q.oninput=show;r.append(q,chips,res);show();
+ const n=h('input',{type:'text',placeholder:_('New list, e.g. Car or Shed project'),maxlength:'40'}),ty=sel_([['tasks',_('Tasks')],['buy',_('Shopping / materials')]],'tasks');
+ r.append(h('h2',{class:'sec'},_('New list')),lab(_('Name'),n),lab(_('Type'),ty),h('button',{class:'btn full',type:'button',onclick:()=>{if(!n.value.trim()){n.focus();return}S.lists.push({id:uid(),name:n.value.trim(),type:ty.value});persist();render()}},_('Add list')))}
+function listCard(l){
+ const it=S.items.filter(i=>i.list===l.id),dn=it.filter(i=>i.done).length,late=it.filter(i=>!i.done&&i.due&&i.due<today()).length,s=[];
+ if(!it.length)s.push(_('Empty'));else if(l.type==='buy')s.push(_('{0} of {1} bought',dn,it.length),_('still to buy {0}',money(it.filter(i=>!i.done).reduce((a,i)=>a+(i.qty||1)*(i.price||0),0))));
+ else{s.push(_('{0} of {1} done',dn,it.length));if(late)s.push(_('{0} overdue',late))}
+ return h('button',{class:'card',type:'button',onclick:()=>{cur=l.id;render();scrollTo(0,0)}},h('div',{class:'n'},l.name),h('small',{},(l.type==='buy'?_('Shopping')+': ':'')+s.join(', ')))}
+function listView(r){
+ const l=listOf(cur),buy=l.type==='buy',it=S.items.filter(i=>i.list===l.id).sort(buy?(a,b)=>a.done-b.done:byDue);
+ r.append(h('div',{class:'top'},h('button',{class:'link',type:'button',onclick:()=>{cur=null;render()}},_('‹ All lists')),twoTap(_('Delete list'),()=>{S.items=S.items.filter(i=>i.list!==l.id);S.lists=S.lists.filter(x=>x!==l);persist();cur=null;render()})));
+ r.append(...hdr(buy?_('Shopping list'):_('Tasks'),l.name,_(buy?'{0} of {1} bought':'{0} of {1} done',it.filter(i=>i.done).length,it.length)));
+ r.append(h('button',{class:'btn full',type:'button',onclick:()=>sheet(null,{list:l.id})},buy?_('Add an item'):_('Add a task')));
+ it.forEach(i=>r.append(row(i,false)));
+ if(!it.length)r.append(h('p',{class:'empty'},buy?_('Nothing on this list yet.'):_('Nothing here yet.')));
+ if(buy&&it.length){const s=x=>it.filter(i=>!!i.done===x).reduce((a,i)=>a+(i.qty||1)*(i.price||0),0);
+  r.append(h('div',{class:'tot'},h('span',{},_('Still to buy')),h('b',{},money(s(false)))),h('div',{class:'tot',style:'border:0;margin:0;padding-top:2px'},h('span',{},_('Bought')),h('span',{},money(s(true)))))}}
+function sheet(it,pre){
+ pre=pre||{};const isNew=!it;
+ const d=it?JSON.parse(JSON.stringify(it)):norm({id:uid(),list:pre.list||(cur&&listOf(cur)?cur:S.lists[0].id),text:'',done:false,due:pre.due||'',qty:1,price:0});
+ const ov=$('#sheet');ov.replaceChildren();ov.hidden=false;const close=()=>{ov.hidden=true;ov.replaceChildren()};
+ const tx=h('input',{type:'text',value:d.text,maxlength:'200',placeholder:_('What needs doing?')});
+ const ls=sel_(S.lists.map(l=>[l.id,l.name]),d.list);
+ const due=h('input',{type:'date',value:d.due}),tm=h('input',{type:'time',value:d.time});
+ const rem=sel_(Object.entries(REM).map(([k,v])=>[k,_(v)]),d.rem),rep=sel_([['',_('Does not repeat')],...Object.entries(REP).map(([k,v])=>[k,_('Repeats '+v)])],d.rep);
+ const qty=h('input',{type:'number',min:'1',value:d.qty||1}),pr=h('input',{type:'number',min:'0',step:'any',value:d.price||''});
+ const buyBox=h('div',{class:'g2'},lab(_('Quantity'),qty),lab(_('Price each'),pr));
+ const upd=()=>{const l=listOf(ls.value);buyBox.hidden=!(l&&l.type==='buy')};ls.onchange=upd;upd();
+ const note=h('textarea',{placeholder:_('Garage name, part numbers, links…')});note.value=d.note;
+ const steps=h('div'),si=h('input',{type:'text',placeholder:_('Add a step'),maxlength:'120'});
+ const draw=()=>{steps.replaceChildren();d.subs.forEach((s,i)=>steps.append(h('div',{class:'sub2'+(s.d?' d':'')},box(s.d,()=>{s.d=!s.d;draw()},1),h('span',{},s.t),h('button',{class:'link',type:'button','aria-label':_('Remove step'),onclick:()=>{d.subs.splice(i,1);draw()}},'×'))))};draw();
+ const addStep=()=>{if(si.value.trim()){d.subs.push({t:si.value.trim(),d:false});si.value='';draw()}};
+ si.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();addStep();si.focus()}};
+ const saveIt=()=>{const t=tx.value.trim();if(!t){tx.focus();return}addStep();
+  Object.assign(d,{text:t,list:ls.value,due:due.value,time:due.value?tm.value:'',rem:due.value?rem.value:'',rep:due.value?rep.value:'',note:note.value,qty:+qty.value||1,price:+pr.value||0,fired:''});
+  if(d.rem!==''&&window.Notification&&Notification.permission==='default')try{Notification.requestPermission()}catch(e){}
+  if(isNew)S.items.push(d);else S.items[S.items.indexOf(it)]=d;
+  persist();close();render()};
+ ov.append(h('div',{class:'sh'},h('h2',{class:'sec',style:'margin-top:0'},isNew?_('New task'):_('Edit task')),lab(_('Title'),tx),lab(_('List'),ls),h('div',{class:'g2'},lab(_('Date'),due),lab(_('Time'),tm)),lab(_('Reminder (needs a date)'),rem),lab(_('Repeat (needs a date)'),rep),buyBox,lab(_('Notes'),note),h('div',{class:'grp'},_('Steps')),steps,h('div',{class:'g2'},si,h('button',{class:'btn o',type:'button',onclick:()=>{addStep();si.focus()}},_('Add step'))),
+  h('div',{class:'btns'},h('button',{class:'btn',type:'button',onclick:saveIt},_('Save')),h('button',{class:'btn o',type:'button',onclick:close},_('Cancel'))),
+  isNew?null:twoTap(_('Delete task'),()=>{S.items=S.items.filter(x=>x!==it);persist();close();render()})));
+ ov.onclick=e=>{if(e.target===ov)close()}}
+function dl(n,txt,type){const a=h('a',{href:URL.createObjectURL(new Blob([txt],{type})),download:n});document.body.append(a);a.click();a.remove();toast(_('File saved: ')+n)}
+function ics(){
+ const esc=s=>String(s).replace(/[\\;,]/g,'\\$&').replace(/\n/g,'\\n'),ds=d=>d.replace(/-/g,''),st=new Date().toISOString().replace(/[-:]/g,'').slice(0,15)+'Z';
+ const L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Tickoff//EN'];
+ open().filter(i=>i.due).forEach(i=>{const l=listOf(i.list);L.push('BEGIN:VEVENT','UID:'+i.id+'@tickoff','DTSTAMP:'+st,'SUMMARY:'+esc(i.text+(l?' ('+l.name+')':'')));
+  if(i.time){const e=new Date(i.due+'T'+i.time);e.setHours(e.getHours()+1);L.push('DTSTART:'+ds(i.due)+'T'+i.time.replace(':','')+'00','DTEND:'+ds(iso(e))+'T'+pad(e.getHours())+pad(e.getMinutes())+'00')}
+  else{const n=new Date(i.due+'T00:00');n.setDate(n.getDate()+1);L.push('DTSTART;VALUE=DATE:'+ds(i.due),'DTEND;VALUE=DATE:'+ds(iso(n)))}
+  if(i.note)L.push('DESCRIPTION:'+esc(i.note));
+  if(i.rep)L.push('RRULE:FREQ='+{d:'DAILY',w:'WEEKLY',m:'MONTHLY',y:'YEARLY'}[i.rep]);
+  if(i.rem!==''){const m=i.time?-(+i.rem):540-(+i.rem);L.push('BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+esc(i.text),'TRIGGER:'+(m<0?'-':'')+'PT'+Math.abs(m)+'M','END:VALARM')}
+  L.push('END:VEVENT')});
+ L.push('END:VCALENDAR');return L.join('\r\n')}
+$('#imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const j=JSON.parse(rd.result);if(!Array.isArray(j.lists)||!Array.isArray(j.items))throw 0;j.items.forEach(norm);S=j;persist();cur=null;render();toast(_('Backup imported.'))}catch(x){toast(_('That file isn’t a Tickoff backup.'))}};rd.readAsText(f);e.target.value=''};
+function notify(it){toast(_('Reminder: ')+it.text);if(window.Notification&&Notification.permission==='granted'){const o={body:it.text,icon:'icon-192.png',tag:it.id};const fb=()=>{try{new Notification('Tickoff',o)}catch(e){}};if(navigator.serviceWorker)navigator.serviceWorker.getRegistration().then(r=>r?r.showNotification('Tickoff',o):fb()).catch(fb);else fb()}}
+function check(){const n=Date.now();let ch=false;open().forEach(i=>{const a=remAt(i);if(a==null||n<a||n-a>864e5)return;const k=i.due+i.time;if(i.fired===k)return;i.fired=k;ch=true;notify(i)});if(ch){persist();render()}}
+function go(t){tab=t;cur=null;render();scrollTo(0,0)}
+function render(){
+ const r=$('#root');r.replaceChildren();({home,today:today_,cal,lists})[tab](r);
+ const c=counts().today,nv=$('#nav');nv.replaceChildren();
+ [['home',_('Home')],['today',_('Today')],['cal',_('Calendar')],['lists',_('Lists')]].forEach(([k,l])=>nv.append(h('button',{type:'button','aria-current':tab===k?'page':null,onclick:()=>go(k)},l,k==='today'&&c?h('span',{class:'badge'},String(c)):null)))}
+render();check();setInterval(check,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+</script></body></html>
