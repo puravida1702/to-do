@@ -66,15 +66,31 @@ nav button[aria-current=page]{color:#fff;border-bottom-color:var(--gold)}
 #toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--paper);border:1.5px solid var(--gold);padding:10px 16px;z-index:12;max-width:90%;font:italic 400 1.05rem var(--serif);opacity:0;pointer-events:none;transition:opacity .25s}#toast.on{opacity:1}
 button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){#cfig.hop{animation:none}.box path,#toast{transition:none}}
+
+body{padding-bottom:130px}
+.crest{width:120px;height:120px}
+.langs{justify-content:flex-end;margin-bottom:4px}.langs .chip{padding:6px 12px;font-size:.7rem}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:#fff;border:1.5px solid var(--gold);padding:10px 4px;text-align:center;cursor:pointer;color:var(--ink);font:inherit}
+.stat b{display:block;font:500 2rem/1.1 var(--serif)}.stat span{display:block;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--gold2)}
+.card.sm{padding:12px 16px}.card.sm .n{font-size:1.4rem}
+details.more2{margin-top:16px;border-top:1px solid var(--gold);padding-top:6px}
+details summary{cursor:pointer;color:var(--gold2);letter-spacing:.2em;text-transform:uppercase;font-weight:700;font-size:.8rem;padding:10px 0}
+.sw{display:flex;gap:10px;margin:8px 0 16px}.sw button{width:38px;height:38px;border:2px solid transparent;border-radius:50%;cursor:pointer}
+.sw button[aria-pressed=true]{border-color:var(--ink);box-shadow:0 0 0 3px var(--paper) inset}
+.cal button{aspect-ratio:1/.8}
+#fab{position:fixed;right:16px;bottom:calc(88px + env(safe-area-inset-bottom));width:58px;height:58px;border-radius:50%;background:var(--gold);color:#fff;border:0;font:400 2rem/1 Lato;box-shadow:0 3px 10px rgba(30,26,22,.35);z-index:6;cursor:pointer}
+nav button{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 6px 6px;font-size:.66rem;letter-spacing:.1em}
+nav svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 </style></head><body>
 <div class="wrap"><div class="frame"><main id="root"></main></div></div>
-<nav id="nav"></nav><div id="sheet" hidden></div><div id="toast" role="status"></div>
+<nav id="nav"></nav><button id="fab" type="button">+</button><div id="sheet" hidden></div><div id="toast" role="status"></div>
 <input type="file" id="imp" accept="application/json" hidden>
 <script>
 const K='tickoff2',$=s=>document.querySelector(s);
 const nl=(navigator.language||'en').slice(0,2);let lang=['fr','es'].includes(nl)?nl:'en';try{lang=localStorage.getItem('tickoff-lang')||lang}catch(e){}document.documentElement.lang=lang;
 const D={"fr": {"All": "Tout", "Tasks": "Tâches", "Shopping": "Courses", "Shopping / materials": "Courses / matériaux", "Shopping list": "Liste de courses", "Today": "Aujourd’hui", "Home": "Accueil", "Calendar": "Calendrier", "Lists": "Listes", "Your day": "Votre journée", "My lists": "Mes listes", "Due today and overdue": "Pour aujourd’hui et en retard", "Coming up in the next 7 days": "À venir dans les 7 prochains jours", "Set one when you add a task": "Ajoutez-en un en créant une tâche", "Add a task": "Ajouter une tâche", "Phone and backup": "Téléphone et sauvegarde", "Reminders pop up while Tickoff is open. To be alerted when it’s closed, add your tasks to your phone’s calendar.": "Les rappels s’affichent quand Tickoff est ouvert. Pour être alerté application fermée, ajoutez vos tâches au calendrier de votre téléphone.", "Add to phone calendar": "Ajouter au calendrier du téléphone", "Export backup": "Exporter la sauvegarde", "Import backup": "Importer une sauvegarde", "Turn on notifications": "Activer les notifications", "Notifications on.": "Notifications activées.", "Notifications are off.": "Notifications désactivées.", "Overdue": "En retard", "Due today": "Pour aujourd’hui", "Nothing due today. Enjoy it, or add a task.": "Rien pour aujourd’hui. Profitez-en, ou ajoutez une tâche.", "Upcoming reminders": "Rappels à venir", "Previous month": "Mois précédent", "Next month": "Mois suivant", "Go to today": "Aller à aujourd’hui", "Nothing planned.": "Rien de prévu.", "Add on this day": "Ajouter ce jour-là", "Search a task or a list": "Rechercher une tâche ou une liste", "Search": "Rechercher", "No match.": "Aucun résultat.", "No lists of this kind yet.": "Aucune liste de ce type.", "New list, e.g. Car or Shed project": "Nouvelle liste, p. ex. Voiture ou Projet cabane", "New list": "Nouvelle liste", "Name": "Nom", "Type": "Type", "Add list": "Ajouter la liste", "Empty": "Vide", "‹ All lists": "‹ Toutes les listes", "Delete list": "Supprimer la liste", "Add an item": "Ajouter un article", "Nothing on this list yet.": "Rien dans cette liste pour l’instant.", "Nothing here yet.": "Rien ici pour l’instant.", "Still to buy": "Reste à acheter", "Bought": "Acheté", "{0} task": "{0} tâche", "{0} tasks": "{0} tâches", "{0} this week": "{0} cette semaine", "{0} reminder": "{0} rappel", "{0} reminders": "{0} rappels", "Next: {0}": "Prochain : {0}", "{0} lists, {1} open items": "{0} listes, {1} éléments ouverts", "{0} lists": "{0} listes", "{0} open items": "{0} éléments ouverts", "{0} of {1} bought": "{0} sur {1} achetés", "{0} of {1} done": "{0} sur {1} faites", "still to buy {0}": "reste à acheter {0}", "{0} overdue": "{0} en retard", "Done. Next one:": "Fait. Prochaine échéance :", "Nice, ticked off.": "Bien, c’est coché.", "Everything bought!": "Tout est acheté !", "List clear. Well done!": "Liste terminée. Bravo !", "at": "à", "reminder": "rappel", "steps": "étapes", "daily": "quotidien", "weekly": "hebdomadaire", "monthly": "mensuel", "yearly": "annuel", "New task": "Nouvelle tâche", "Edit task": "Modifier la tâche", "Title": "Titre", "List": "Liste", "Date": "Date", "Time": "Heure", "Reminder (needs a date)": "Rappel (nécessite une date)", "Repeat (needs a date)": "Répétition (nécessite une date)", "Quantity": "Quantité", "Price each": "Prix unitaire", "Notes": "Notes", "What needs doing?": "Que faut-il faire ?", "Garage name, part numbers, links…": "Nom du garage, références de pièces, liens…", "Add a step": "Ajouter une étape", "Steps": "Étapes", "Add step": "Ajouter", "Remove step": "Retirer l’étape", "Save": "Enregistrer", "Cancel": "Annuler", "Delete task": "Supprimer la tâche", "Does not repeat": "Ne se répète pas", "Repeats daily": "Chaque jour", "Repeats weekly": "Chaque semaine", "Repeats monthly": "Chaque mois", "Repeats yearly": "Chaque année", "No reminder": "Aucun rappel", "At the time": "À l’heure prévue", "10 minutes before": "10 minutes avant", "1 hour before": "1 heure avant", "1 day before": "1 jour avant", "Tap again to confirm": "Touchez de nouveau pour confirmer", "Toggle done": "Basculer fait", "File saved: ": "Fichier enregistré : ", "Backup imported.": "Sauvegarde importée.", "That file isn’t a Tickoff backup.": "Ce fichier n’est pas une sauvegarde Tickoff.", "Reminder: ": "Rappel : "}, "es": {"All": "Todo", "Tasks": "Tareas", "Shopping": "Compras", "Shopping / materials": "Compras / materiales", "Shopping list": "Lista de compras", "Today": "Hoy", "Home": "Inicio", "Calendar": "Calendario", "Lists": "Listas", "Your day": "Tu día", "My lists": "Mis listas", "Due today and overdue": "Para hoy y atrasadas", "Coming up in the next 7 days": "Próximos 7 días", "Set one when you add a task": "Añade uno al crear una tarea", "Add a task": "Añadir una tarea", "Phone and backup": "Teléfono y copia de seguridad", "Reminders pop up while Tickoff is open. To be alerted when it’s closed, add your tasks to your phone’s calendar.": "Los recordatorios aparecen mientras Tickoff está abierto. Para recibir avisos con la app cerrada, añade tus tareas al calendario del teléfono.", "Add to phone calendar": "Añadir al calendario del teléfono", "Export backup": "Exportar copia de seguridad", "Import backup": "Importar copia de seguridad", "Turn on notifications": "Activar notificaciones", "Notifications on.": "Notificaciones activadas.", "Notifications are off.": "Notificaciones desactivadas.", "Overdue": "Atrasadas", "Due today": "Para hoy", "Nothing due today. Enjoy it, or add a task.": "Nada para hoy. Disfrútalo, o añade una tarea.", "Upcoming reminders": "Próximos recordatorios", "Previous month": "Mes anterior", "Next month": "Mes siguiente", "Go to today": "Ir a hoy", "Nothing planned.": "Nada planeado.", "Add on this day": "Añadir este día", "Search a task or a list": "Buscar una tarea o una lista", "Search": "Buscar", "No match.": "Sin resultados.", "No lists of this kind yet.": "Aún no hay listas de este tipo.", "New list, e.g. Car or Shed project": "Nueva lista, p. ej. Coche o Proyecto del cobertizo", "New list": "Nueva lista", "Name": "Nombre", "Type": "Tipo", "Add list": "Añadir lista", "Empty": "Vacía", "‹ All lists": "‹ Todas las listas", "Delete list": "Eliminar lista", "Add an item": "Añadir un artículo", "Nothing on this list yet.": "Aún no hay nada en esta lista.", "Nothing here yet.": "Aún no hay nada aquí.", "Still to buy": "Por comprar", "Bought": "Comprado", "{0} task": "{0} tarea", "{0} tasks": "{0} tareas", "{0} this week": "{0} esta semana", "{0} reminder": "{0} recordatorio", "{0} reminders": "{0} recordatorios", "Next: {0}": "Siguiente: {0}", "{0} lists, {1} open items": "{0} listas, {1} elementos abiertos", "{0} lists": "{0} listas", "{0} open items": "{0} elementos abiertos", "{0} of {1} bought": "{0} de {1} comprados", "{0} of {1} done": "{0} de {1} hechas", "still to buy {0}": "por comprar {0}", "{0} overdue": "{0} atrasadas", "Done. Next one:": "Hecho. Siguiente:", "Nice, ticked off.": "Bien, tachado.", "Everything bought!": "¡Todo comprado!", "List clear. Well done!": "Lista completa. ¡Bien hecho!", "at": "a las", "reminder": "recordatorio", "steps": "pasos", "daily": "diario", "weekly": "semanal", "monthly": "mensual", "yearly": "anual", "New task": "Nueva tarea", "Edit task": "Editar tarea", "Title": "Título", "List": "Lista", "Date": "Fecha", "Time": "Hora", "Reminder (needs a date)": "Recordatorio (requiere fecha)", "Repeat (needs a date)": "Repetición (requiere fecha)", "Quantity": "Cantidad", "Price each": "Precio unitario", "Notes": "Notas", "What needs doing?": "¿Qué hay que hacer?", "Garage name, part numbers, links…": "Nombre del taller, referencias de piezas, enlaces…", "Add a step": "Añadir un paso", "Steps": "Pasos", "Add step": "Añadir", "Remove step": "Quitar paso", "Save": "Guardar", "Cancel": "Cancelar", "Delete task": "Eliminar tarea", "Does not repeat": "No se repite", "Repeats daily": "A diario", "Repeats weekly": "Cada semana", "Repeats monthly": "Cada mes", "Repeats yearly": "Cada año", "No reminder": "Sin recordatorio", "At the time": "A la hora", "10 minutes before": "10 minutos antes", "1 hour before": "1 hora antes", "1 day before": "1 día antes", "Tap again to confirm": "Toca de nuevo para confirmar", "Toggle done": "Marcar como hecho", "File saved: ": "Archivo guardado: ", "Backup imported.": "Copia importada.", "That file isn’t a Tickoff backup.": "Ese archivo no es una copia de Tickoff.", "Reminder: ": "Recordatorio: "}};
-D.fr['Edit list']='Modifier la liste';D.es['Edit list']='Editar lista';
+D.fr['Edit list']='Modifier la liste';D.es['Edit list']='Editar lista';D.fr['This week']='Cette semaine';D.es['This week']='Esta semana';D.fr['Reminders']='Rappels';D.es['Reminders']='Recordatorios';D.fr['Colour']='Couleur';D.es['Colour']='Color';
 const _=(k,...a)=>{let r=(D[lang]&&D[lang][k])||k;a.forEach((v,i)=>{r=r.replace('{'+i+'}',()=>v)});return r};
 const uid=()=>'i'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);
 const pad=n=>String(n).padStart(2,'0');
@@ -96,6 +112,8 @@ function load(){
 let S=load(),tab='home',cur=null,flt='all',sel=today(),cy=new Date().getFullYear(),cm=new Date().getMonth();
 const persist=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
 const listOf=id=>S.lists.find(l=>l.id===id);
+const PAL=['#AD8B54','#4F7A5A','#3E5C8A','#A4442F','#7A5A8C','#2F7F86'];
+const lc=l=>l.color||PAL[Math.max(0,S.lists.indexOf(l))%PAL.length];
 function h(t,a,...c){const e=document.createElement(t);for(const k in a||{}){const v=a[k];if(k.startsWith('on'))e[k]=v;else if(k==='value')e.value=v;else if(v!=null&&v!==false)e.setAttribute(k,v)}c.flat().forEach(x=>x!=null&&e.append(x));return e}
 const sel_=(pairs,v,fn)=>h('select',{onchange:fn},pairs.map(([k,t])=>{const o=h('option',{value:k},t);if(String(k)===String(v))o.selected=true;return o}));
 const lab=(t,el)=>h('label',{},t,el);
@@ -118,31 +136,31 @@ function row(it,sl){
  if(sl&&l)m.push(l.name);if(it.due)m.push((late?_('Overdue')+' ':'')+fmt(it.due)+(it.time?' '+_('at')+' '+it.time:''));
  if(it.rem!=='')m.push(_('reminder'));if(it.rep)m.push(_(REP[it.rep]));
  if(l&&l.type==='buy')m.push((it.qty||1)+' × '+money(it.price));
- return h('div',{class:'it'+(it.done?' done':'')},h('div',{class:'r'},box(it.done,()=>toggle(it)),h('div',{class:'t',onclick:()=>sheet(it)},h('span',{},it.text),h('small',{class:late?'late':''},m.join(', '))),h('span',{class:'chev'},'›')))}
+ return h('div',{class:'it'+(it.done?' done':''),style:l?'border-left:5px solid '+lc(l):null},h('div',{class:'r'},box(it.done,()=>toggle(it)),h('div',{class:'t',onclick:()=>sheet(it)},h('span',{},it.text),h('small',{class:late?'late':''},m.join(', '))),h('span',{class:'chev'},'›')))}
 const hdr=(e,b,s)=>[h('div',{class:'eyebrow'},e),h('h1',{class:'big'},b),s?h('p',{class:'sub'},s):null,h('div',{class:'div'},h('i'),h('b'),h('i'))];
 const longDate=()=>new Date().toLocaleDateString(lang,{weekday:'long',day:'numeric',month:'long'});
-const FIG='<path d="M45 38m-9 0a9 9 0 1 0 18 0a9 9 0 1 0-18 0"/><path d="M41 41q4 4 8 0"/><path d="M45 47v26M45 73l-9 18M45 73l9 18"/><path id="idle" d="M45 54L30 44L28 28"/><path id="thumb" d="M45 54L32 42L30 30"/><path d="M45 56l16-6M61 50v-6M61 44l4 2"/><path class="pen" d="M12 22L56 14L66 18L56 24L14 32Z"/>';
+const FIG='<path d="M36 42a9 9 0 1 0 18 0a9 9 0 1 0-18 0"/><path d="M41 45q4 4 8 0"/><path d="M45 51v26M45 77l-9 19M45 77l9 19"/><path id="idle" d="M45 58L30 46L28 26"/><path id="thumb" d="M45 58L32 44L30 26"/><path d="M45 58l13-6M58 52v-7M58 45l4 2"/><path class="pen" d="M10 12L56 5L68 9L56 15L12 22Z"/>';
 function crest(){let t='';for(let i=0;i<60;i++){const a=i*Math.PI/30,r1=i%5?73:69;t+=`<line x1="${100+r1*Math.sin(a)}" y1="${100-r1*Math.cos(a)}" x2="${100+77*Math.sin(a)}" y2="${100-77*Math.cos(a)}"/>`}
  const dia=[[100,6],[194,100],[100,194],[6,100]].map(([x,y])=>`<rect x="${x-5}" y="${y-5}" width="10" height="10" transform="rotate(45 ${x} ${y})" fill="#AD8B54" stroke="none"/>`).join('');
- const d=h('div');d.innerHTML=`<svg class="crest" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="95" fill="#FAF7F2" stroke="#AD8B54" stroke-width="2"/><circle cx="100" cy="100" r="87" fill="none" stroke="#1F2A44" stroke-width="3"/><g stroke="#AD8B54" stroke-width="1">${t}</g>${dia}<g transform="translate(52,50) scale(.95)"><g id="cfig">${FIG}</g></g></svg>`;return d.firstChild}
+ const d=h('div');d.innerHTML=`<svg class="crest" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="95" fill="#FAF7F2" stroke="#AD8B54" stroke-width="2"/><circle cx="100" cy="100" r="87" fill="none" stroke="#1F2A44" stroke-width="3"/><g stroke="#AD8B54" stroke-width="1">${t}</g>${dia}<g transform="translate(49,34) scale(1.3)"><g id="cfig">${FIG}</g></g></svg>`;return d.firstChild}
 function home(r){
- const c=counts(),nx=c.rems.sort((a,b)=>remAt(a)-remAt(b))[0];
- r.append(langBar(),crest(),h('p',{class:'sub'},longDate()),h('div',{class:'div'},h('i'),h('b'),h('i')),h('h2',{class:'sec'},_('Today')));
- const card=(n,s,fn)=>h('button',{class:'card',type:'button',onclick:fn},h('div',{class:'n'},n),h('small',{},s));
- r.append(card(_(c.today===1?'{0} task':'{0} tasks',c.today),_('Due today and overdue'),()=>go('today')),
-  card(_('{0} this week',c.week),_('Coming up in the next 7 days'),()=>go('cal')),
-  card(_(c.rems.length===1?'{0} reminder':'{0} reminders',c.rems.length),nx?_('Next: {0}',nx.text):_('Set one when you add a task'),()=>go('today')));
- r.append(h('div',{class:'div'},h('i'),h('b'),h('i')),card(_('My lists'),_('{0} lists, {1} open items',S.lists.length,open().length),()=>go('lists')),h('button',{class:'btn full',type:'button',onclick:()=>sheet(null)},_('Add a task')));
- r.append(h('h2',{class:'sec'},_('Phone and backup')));
- r.append(h('p',{class:'empty'},_('Reminders pop up while Tickoff is open. To be alerted when it’s closed, add your tasks to your phone’s calendar.')));
- const b=(t,fn)=>h('button',{class:'btn o full',type:'button',onclick:fn},t);
- r.append(b(_('Add to phone calendar'),()=>dl('tickoff.ics',ics(),'text/calendar')),b(_('Export backup'),()=>dl('tickoff-backup.json',JSON.stringify(S),'application/json')),b(_('Import backup'),()=>$('#imp').click()));
- if(window.Notification&&Notification.permission!=='granted')r.append(b(_('Turn on notifications'),()=>Notification.requestPermission().then(p=>toast(p==='granted'?_('Notifications on.'):_('Notifications are off.')))))}
+ const c=counts(),t=today(),due=open().sort(byDue).filter(i=>i.due&&i.due<=t);
+ r.append(langBar(),crest(),h('p',{class:'sub'},longDate()),h('div',{class:'div'},h('i'),h('b'),h('i')));
+ const st=(n,l,fn)=>h('button',{class:'stat',type:'button',onclick:fn},h('b',{},String(n)),h('span',{},l));
+ r.append(h('div',{class:'stats'},st(c.today,_('Due today'),()=>go('today')),st(c.week,_('This week'),()=>go('cal')),st(c.rems.length,_('Reminders'),()=>go('today'))));
+ r.append(h('h2',{class:'sec'},_('Today')));
+ due.forEach(i=>r.append(row(i,true)));
+ if(!due.length)r.append(h('p',{class:'empty'},_('Nothing due today. Enjoy it, or add a task.')));
+ r.append(h('div',{class:'div'},h('i'),h('b'),h('i')),h('button',{class:'card sm',type:'button',onclick:()=>go('lists')},h('div',{class:'n'},_('My lists')),h('small',{},_('{0} lists, {1} open items',S.lists.length,open().length))));
+ const b=(x,fn)=>h('button',{class:'btn o full',type:'button',onclick:fn},x);
+ const dt=h('details',{class:'more2'},h('summary',{},_('Phone and backup')),h('p',{class:'empty'},_('Reminders pop up while Tickoff is open. To be alerted when it’s closed, add your tasks to your phone’s calendar.')),
+  b(_('Add to phone calendar'),()=>dl('tickoff.ics',ics(),'text/calendar')),b(_('Export backup'),()=>dl('tickoff-backup.json',JSON.stringify(S),'application/json')),b(_('Import backup'),()=>$('#imp').click()));
+ if(window.Notification&&Notification.permission!=='granted')dt.append(b(_('Turn on notifications'),()=>Notification.requestPermission().then(p=>toast(p==='granted'?_('Notifications on.'):_('Notifications are off.')))));
+ r.append(dt)}
 function langBar(){return h('div',{class:'langs'},['en','fr','es'].map(c=>h('button',{type:'button',class:'chip','aria-pressed':lang===c,onclick:()=>{lang=c;try{localStorage.setItem('tickoff-lang',c)}catch(e){}document.documentElement.lang=c;render()}},c.toUpperCase())))}
 function today_(r){
  const t=today(),o=open().sort(byDue),od=o.filter(i=>i.due&&i.due<t),td=o.filter(i=>i.due===t);
  r.append(...hdr(_('Today'),_('Your day'),longDate()));
- r.append(h('button',{class:'btn full',type:'button',onclick:()=>sheet(null,{due:t})},_('Add a task')));
  const g=(n,a)=>{if(a.length){r.append(h('div',{class:'grp'},n+' ('+a.length+')'));a.forEach(i=>r.append(row(i,true)))}};
  g(_('Overdue'),od);g(_('Due today'),td);
  if(!od.length&&!td.length)r.append(h('p',{class:'empty'},_('Nothing due today. Enjoy it, or add a task.')));
@@ -150,19 +168,19 @@ function today_(r){
  if(rs.length){r.append(h('div',{class:'grp'},_('Upcoming reminders')));rs.forEach(i=>r.append(row(i,true)))}}
 function cal(r){
  const t=today(),first=new Date(cy,cm,1),off=(first.getDay()+6)%7,dim=new Date(cy,cm+1,0).getDate();
- r.append(h('div',{class:'eyebrow'},_('Calendar')),h('h1',{class:'big'},first.toLocaleDateString(lang,{month:'long',year:'numeric'})),h('div',{class:'div'},h('i'),h('b'),h('i')));
+ r.append(h('div',{class:'eyebrow'},_('Calendar')),h('h1',{class:'big',style:'font-size:2.1rem'},first.toLocaleDateString(lang,{month:'long',year:'numeric'})),h('div',{class:'div'},h('i'),h('b'),h('i')));
  const mv=n=>{const x=new Date(cy,cm+n,1);cy=x.getFullYear();cm=x.getMonth();render()};
  r.append(h('div',{class:'top'},h('button',{class:'btn o',type:'button','aria-label':_('Previous month'),onclick:()=>mv(-1)},'‹'),h('button',{class:'link',type:'button',onclick:()=>{const n=new Date();cy=n.getFullYear();cm=n.getMonth();sel=t;render()}},_('Go to today')),h('button',{class:'btn o',type:'button','aria-label':_('Next month'),onclick:()=>mv(1)},'›')));
  const g=h('div',{class:'cal'});
  for(let i=0;i<7;i++)g.append(h('div',{class:'w'},new Date(2024,0,1+i).toLocaleDateString(lang,{weekday:'narrow'})));
  const total=Math.ceil((off+dim)/7)*7;
- for(let i=0;i<total;i++){const x=new Date(cy,cm,1-off+i),d=iso(x),has=S.items.some(it=>it.due===d&&!it.done);
-  g.append(h('button',{type:'button',class:(d===t?'tt ':'')+(d===sel?'sl ':'')+(x.getMonth()!==cm?'out':''),'aria-label':d,onclick:()=>{sel=d;render()}},String(x.getDate()),has?h('i'):null))}
+ for(let i=0;i<total;i++){const x=new Date(cy,cm,1-off+i),d=iso(x),has=S.items.find(it=>it.due===d&&!it.done);
+  g.append(h('button',{type:'button',class:(d===t?'tt ':'')+(d===sel?'sl ':'')+(x.getMonth()!==cm?'out':''),'aria-label':d,onclick:()=>{sel=d;render()}},String(x.getDate()),has?h('i',{style:'background:'+lc(listOf(has.list)||S.lists[0])}):null))}
  r.append(g,h('h2',{class:'sec'},new Date(sel+'T00:00').toLocaleDateString(lang,{weekday:'long',day:'numeric',month:'long'})));
  const day=S.items.filter(i=>i.due===sel).sort(byDue);
  day.forEach(i=>r.append(row(i,true)));
  if(!day.length)r.append(h('p',{class:'empty'},_('Nothing planned.')));
- r.append(h('button',{class:'btn full',type:'button',onclick:()=>sheet(null,{due:sel})},_('Add on this day')))}
+ }
 function lists(r){
  if(cur&&listOf(cur))return listView(r);cur=null;
  r.append(...hdr(_('My lists'),_('{0} lists',S.lists.length),_('{0} open items',open().length)));
@@ -180,12 +198,11 @@ function listCard(l){
  const it=S.items.filter(i=>i.list===l.id),dn=it.filter(i=>i.done).length,late=it.filter(i=>!i.done&&i.due&&i.due<today()).length,s=[];
  if(!it.length)s.push(_('Empty'));else if(l.type==='buy')s.push(_('{0} of {1} bought',dn,it.length),_('still to buy {0}',money(it.filter(i=>!i.done).reduce((a,i)=>a+(i.qty||1)*(i.price||0),0))));
  else{s.push(_('{0} of {1} done',dn,it.length));if(late)s.push(_('{0} overdue',late))}
- return h('button',{class:'card',type:'button',onclick:()=>{cur=l.id;render();scrollTo(0,0)}},h('div',{class:'n'},l.name),h('small',{},(l.type==='buy'?_('Shopping')+': ':'')+s.join(', ')))}
+ return h('button',{class:'card',style:'border-left:6px solid '+lc(l),type:'button',onclick:()=>{cur=l.id;render();scrollTo(0,0)}},h('div',{class:'n'},l.name),h('small',{},(l.type==='buy'?_('Shopping')+': ':'')+s.join(', ')))}
 function listView(r){
  const l=listOf(cur),buy=l.type==='buy',it=S.items.filter(i=>i.list===l.id).sort(buy?(a,b)=>a.done-b.done:byDue);
  r.append(h('div',{class:'top'},h('button',{class:'link',type:'button',onclick:()=>{cur=null;render()}},_('‹ All lists')),h('button',{class:'link',type:'button',onclick:()=>editList(l)},_('Edit list'))));
  r.append(...hdr(buy?_('Shopping list'):_('Tasks'),l.name,_(buy?'{0} of {1} bought':'{0} of {1} done',it.filter(i=>i.done).length,it.length)));
- r.append(h('button',{class:'btn full',type:'button',onclick:()=>sheet(null,{list:l.id})},buy?_('Add an item'):_('Add a task')));
  it.forEach(i=>r.append(row(i,false)));
  if(!it.length)r.append(h('p',{class:'empty'},buy?_('Nothing on this list yet.'):_('Nothing here yet.')));
  if(buy&&it.length){const s=x=>it.filter(i=>!!i.done===x).reduce((a,i)=>a+(i.qty||1)*(i.price||0),0);
@@ -193,8 +210,10 @@ function listView(r){
 function editList(l){
  const ov=$('#sheet');ov.replaceChildren();ov.hidden=false;const close=()=>{ov.hidden=true;ov.replaceChildren()};
  const n=h('input',{type:'text',value:l.name,maxlength:'40'}),ty=sel_([['tasks',_('Tasks')],['buy',_('Shopping / materials')]],l.type);
- ov.append(h('div',{class:'sh'},h('h2',{class:'sec',style:'margin-top:0'},_('Edit list')),lab(_('Name'),n),lab(_('Type'),ty),
-  h('div',{class:'btns'},h('button',{class:'btn',type:'button',onclick:()=>{if(!n.value.trim()){n.focus();return}l.name=n.value.trim();l.type=ty.value;persist();close();render()}},_('Save')),h('button',{class:'btn o',type:'button',onclick:close},_('Cancel'))),
+ let col=lc(l);const sw=h('div',{class:'sw'});
+ const drawSw=()=>{sw.replaceChildren();PAL.forEach(c=>sw.append(h('button',{type:'button','aria-label':c,'aria-pressed':c===col,style:'background:'+c,onclick:()=>{col=c;drawSw()}})))};drawSw();
+ ov.append(h('div',{class:'sh'},h('h2',{class:'sec',style:'margin-top:0'},_('Edit list')),lab(_('Name'),n),lab(_('Type'),ty),h('div',{class:'grp'},_('Colour')),sw,
+  h('div',{class:'btns'},h('button',{class:'btn',type:'button',onclick:()=>{if(!n.value.trim()){n.focus();return}l.name=n.value.trim();l.type=ty.value;l.color=col;persist();close();render()}},_('Save')),h('button',{class:'btn o',type:'button',onclick:close},_('Cancel'))),
   twoTap(_('Delete list'),()=>{S.items=S.items.filter(i=>i.list!==l.id);S.lists=S.lists.filter(x=>x!==l);persist();cur=null;close();render()})));
  ov.onclick=e=>{if(e.target===ov)close()}}
 function sheet(it,pre){
@@ -234,10 +253,14 @@ $('#imp').onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileR
 function notify(it){toast(_('Reminder: ')+it.text);if(window.Notification&&Notification.permission==='granted'){const o={body:it.text,icon:'icon-192.png',tag:it.id};const fb=()=>{try{new Notification('Tickoff',o)}catch(e){}};if(navigator.serviceWorker)navigator.serviceWorker.getRegistration().then(r=>r?r.showNotification('Tickoff',o):fb()).catch(fb);else fb()}}
 function check(){const n=Date.now();let ch=false;open().forEach(i=>{const a=remAt(i);if(a==null||n<a||n-a>864e5)return;const k=i.due+i.time;if(i.fired===k)return;i.fired=k;ch=true;notify(i)});if(ch){persist();render()}}
 function go(t){tab=t;cur=null;render();scrollTo(0,0)}
+const IC={home:'<path d="M3 11l9-8 9 8M5 10v10h14V10"/>',today:'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>',cal:'<rect x="3" y="5" width="18" height="16"/><path d="M3 10h18M8 3v4M16 3v4"/>',lists:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>'};
 function render(){
  const r=$('#root');r.replaceChildren();({home,today:today_,cal,lists})[tab](r);
  const c=counts().today,nv=$('#nav');nv.replaceChildren();
- [['home',_('Home')],['today',_('Today')],['cal',_('Calendar')],['lists',_('Lists')]].forEach(([k,l])=>nv.append(h('button',{type:'button','aria-current':tab===k?'page':null,onclick:()=>go(k)},l,k==='today'&&c?h('span',{class:'badge'},String(c)):null)))}
+ [['home',_('Home')],['today',_('Today')],['cal',_('Calendar')],['lists',_('Lists')]].forEach(([k,l])=>{const b=h('button',{type:'button','aria-current':tab===k?'page':null,onclick:()=>go(k)});b.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+IC[k]+'</svg>';b.append(h('span',{},l,k==='today'&&c?h('span',{class:'badge'},String(c)):null));nv.append(b)});
+ const f=$('#fab'),cl=tab==='lists'&&cur?listOf(cur):null;
+ f.setAttribute('aria-label',cl&&cl.type==='buy'?_('Add an item'):_('Add a task'));
+ f.onclick=()=>sheet(null,tab==='cal'?{due:sel}:tab==='today'?{due:today()}:cl?{list:cl.id}:{})}
 render();check();setInterval(check,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)check()});
 if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script></body></html>
